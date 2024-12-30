@@ -27,14 +27,19 @@ function App() {
         <nav className="bg-black text-white p-4 fixed top-0 left-0 w-full uppercase z-10">
           <div className="flex justify-center space-x-8">
             <Link to="/" className="hover:underline hover:text-gray-400">Home</Link>
-            <Link to="/createpost" className="hover:underline hover:text-gray-400">Create Post</Link>
-            {!isAuth ? <Link to="/login" className="hover:underline hover:text-gray-400">Login</Link> : <button onClick={signUserOut}>Logout</button>}
+
+            {!isAuth ? <Link to="/login" className="hover:underline hover:text-gray-400">Login</Link>
+              : <>
+                <Link to="/createpost" className="hover:underline hover:text-gray-400">Create Post</Link>
+                <button onClick={signUserOut}>Logout</button>
+              </>
+            }
           </div>
         </nav>
         <div className="container mx-auto p-4 pt-20">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/createpost" element={<CreatePost />} />
+            <Route path="/" element={<Home isAuth={isAuth} />} />
+            <Route path="/createpost" element={<CreatePost isAuth={isAuth} />} />
             <Route path="/login" element={<Login setIsAuth={setIsAuth} />} />
           </Routes>
         </div>
